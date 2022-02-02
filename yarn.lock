@@ -1387,7 +1387,7 @@
 
 "@chakra-ui/react@^1.8.1":
   version "1.8.1"
-  resolved "https://registry.npmjs.org/@chakra-ui/react/-/react-1.8.1.tgz"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/react/-/react-1.8.1.tgz#0c80b51c598cc796e0abd205ca695bb2ef379e54"
   integrity sha512-QnO/XCQ/m+hLgEo7PRfg8lduC+uMMy4NPRjcE1SdmUTm9wdVVCcT26yWtnlLBjvtNCpmgtkU2m4BOMWsP1Dh1w==
   dependencies:
     "@chakra-ui/accordion" "1.4.4"
