@@ -1,31 +1,60 @@
-// Nossa fruteira vende banana (R$6,00/kg), maçã (R$3,00/kg), laranja
-// (R$5,50/kg), abacate (R$5,00/unidade) e manga (R$6,00/unidade).
 import { useEffect, useState } from "react";
-import { Wrap, WrapItem, Center } from "@chakra-ui/react";
-import { listItems } from "../services/listItems";
+import { Wrap, WrapItem, Center, Button, Flex } from "@chakra-ui/react";
+import listItems from "../services/listItems";
 import Card from "../Components/Card";
+import { getItem, setItem, sortByID } from "../../src/helpers/storageHelper.js";
+import Header from "../Components/Header";
+import { Link } from "react-router-dom";
+
 const Home = () => {
-	console.log(listItems);
+	const [fruits, setFruits] = useState([]);
+	useEffect(() => {
+		setFruits(listItems);
+	}, []);
+	console.log(fruits);
+
+	const handleClick = (fruit) => {
+		const cart = getItem();
+		const newCart = cart.filter((item) => item.id !== fruit.id);
+		newCart.push(fruit);
+		sortByID(newCart);
+		console.log(newCart);
+		setItem(newCart);
+	};
+
 	return (
 		<>
-			<Wrap display="flex" flexDirection="row" alignItems="center">
-				{listItems.map((item) => (
+			<Link to="/">
+				<Header>Lojinha do Yan</Header>
+			</Link>
+
+			<Flex alignItems={"center"} flexDirection="column">
+				<Wrap display="flex" flexDirection="row" justifyContent="space-evenly">
 					<>
-						<WrapItem>
-							<Center w="auto" h="auto">
-								<Card
-									key={item.id}
-									name={item.name}
-									currency={item.currency}
-									price={item.price}
-									type={item.type}
-									imageURL={item.imageURL}
-								></Card>
-							</Center>
-						</WrapItem>
+						{fruits?.map((fruit) => (
+							<>
+								<WrapItem>
+									<Center w="auto" h="auto">
+										<Card
+											key={fruit.id}
+											id={fruit.id}
+											name={fruit.name}
+											currency={fruit.currency}
+											price={fruit.price}
+											type={fruit.type}
+											image={fruit.image}
+											handleClick={handleClick}
+										/>
+									</Center>
+								</WrapItem>
+							</>
+						))}
 					</>
-				))}
-			</Wrap>
+				</Wrap>
+				<Link to="/cart">
+					<Button margin={10}>Ir para o Carrinho</Button>
+				</Link>
+			</Flex>
 		</>
 	);
 };

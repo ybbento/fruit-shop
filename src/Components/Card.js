@@ -9,11 +9,13 @@ import {
 	Text,
 	Button,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 const Card = (props) => {
 	const [amount, setAmount] = useState(0);
+	const { name, price, image, id, handleClick, type } = props;
 	const [button, setButton] = useState(false);
-	const { name, currency, price, type, imageURL } = props;
+
 	const handleChange = (value) => {
 		return (
 			<>
@@ -39,7 +41,7 @@ const Card = (props) => {
 			<Image
 				boxSize="100px"
 				objectFit="cover"
-				src={imageURL}
+				src={image}
 				alt={name}
 				alignSelf="center"
 				borderRadius="50%"
@@ -63,7 +65,11 @@ const Card = (props) => {
 					textTransform="uppercase"
 					ml="2"
 				>
-					{currency} {price.toFixed(2)}
+					{Number(price.toFixed(2)).toLocaleString("pt-BR", {
+						currency: "BRL",
+						style: "currency",
+						minimumFractionDigits: 2,
+					})}
 				</Box>
 				<Box
 					color="gray.500"
@@ -95,8 +101,29 @@ const Card = (props) => {
 				</NumberInput>
 			</Box>
 
-			<Text fontSize="12px">Total: R$ {(amount * price).toFixed(2)}</Text>
-			<Button colorScheme="blue" isDisabled={!button}>
+			<Text fontSize="12px">
+				Total:
+				{Number(amount * price.toFixed(2)).toLocaleString("pt-BR", {
+					currency: "BRL",
+					style: "currency",
+					minimumFractionDigits: 2,
+				})}
+			</Text>
+			<Button
+				colorScheme="blue"
+				isDisabled={!button}
+				onClick={() =>
+					handleClick({
+						id,
+						name,
+						image,
+						amount,
+						total: amount * price,
+						type,
+						price,
+					})
+				}
+			>
 				Adicionar ao carrinho
 			</Button>
 		</Box>
