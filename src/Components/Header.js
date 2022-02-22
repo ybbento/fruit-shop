@@ -10,7 +10,14 @@ const Header = (props) => {
 			padding={10}
 			backgroundColor="gray.400"
 		>
-			<Text color="white">{children}</Text>
+			<Text
+				color="white"
+				display={"flex"}
+				flexDirection="row"
+				justifyContent={"space-between"}
+			>
+				{children}
+			</Text>
 		</Heading>
 	);
 };
