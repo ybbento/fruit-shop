@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,7 @@ const Cart = () => {
 	const [fruits, setFruits] = useState([]);
 	const [cart, setCart] = useState([]);
 	const [totalValue, setTotalValue] = useState(0);
+	const toast = useToast();
 
 	useEffect(() => {
 		setFruits(fruitList);
@@ -73,7 +74,21 @@ const Cart = () => {
 						minimumFractionDigits: 2,
 					})}
 				</Text>
-				<Button>Finalizar compra</Button>
+				<Link to="/">
+					<Button
+						onClick={() =>
+							toast({
+								title: "Compra finalizada!",
+								description: "Compra finalizada com sucesso!",
+								status: "success",
+								duration: 15000,
+								isClosable: true,
+							})
+						}
+					>
+						Finalizar compra
+					</Button>
+				</Link>
 			</Flex>
 		</>
 	);
