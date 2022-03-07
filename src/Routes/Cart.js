@@ -76,15 +76,16 @@ const Cart = () => {
 				</Text>
 				<Link to="/">
 					<Button
-						onClick={() =>
+						onClick={() => {
+							localStorage.clear();
 							toast({
 								title: "Compra finalizada!",
 								description: "Compra finalizada com sucesso!",
 								status: "success",
 								duration: 15000,
 								isClosable: true,
-							})
-						}
+							});
+						}}
 					>
 						Finalizar compra
 					</Button>
