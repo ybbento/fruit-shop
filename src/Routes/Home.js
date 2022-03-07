@@ -12,14 +12,13 @@ const Home = () => {
 	useEffect(() => {
 		setFruits(listItems);
 	}, []);
-	console.log(fruits);
 
 	const handleClick = (fruit) => {
 		const cart = getItem();
 		const newCart = cart.filter((item) => item.id !== fruit.id);
 		newCart.push(fruit);
 		sortByID(newCart);
-		console.log(newCart);
+
 		setItem(newCart);
 		newCart.lenght === 0 ? setButton(false) : setButton(true);
 	};
