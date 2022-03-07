@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
 	const [fruits, setFruits] = useState([]);
+	const [button, setButton] = useState(false);
 	useEffect(() => {
 		setFruits(listItems);
 	}, []);
@@ -20,13 +21,15 @@ const Home = () => {
 		sortByID(newCart);
 		console.log(newCart);
 		setItem(newCart);
+		newCart.lenght === 0 ? setButton(false) : setButton(true);
 	};
 
 	return (
 		<>
-			<Link to="/">
-				<Header>Lojinha do Yan</Header>
-			</Link>
+			<Header>
+				{" "}
+				<Link to="/">Lojinha do Yan </Link>
+			</Header>
 
 			<Flex alignItems={"center"} flexDirection="column">
 				<Wrap display="flex" flexDirection="row" justifyContent="space-evenly">
@@ -52,7 +55,9 @@ const Home = () => {
 					</>
 				</Wrap>
 				<Link to="/cart">
-					<Button margin={10}>Ir para o Carrinho</Button>
+					<Button margin={10} isDisabled={!button}>
+						Ir para o Carrinho
+					</Button>
 				</Link>
 			</Flex>
 		</>

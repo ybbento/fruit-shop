@@ -8,6 +8,7 @@ import {
 	NumberDecrementStepper,
 	Text,
 	Button,
+	useToast,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
@@ -15,6 +16,7 @@ const Card = (props) => {
 	const [amount, setAmount] = useState(0);
 	const { name, price, image, id, handleClick, type } = props;
 	const [button, setButton] = useState(false);
+	const toast = useToast();
 
 	const handleChange = (value) => {
 		return (
@@ -112,7 +114,7 @@ const Card = (props) => {
 			<Button
 				colorScheme="blue"
 				isDisabled={!button}
-				onClick={() =>
+				onClick={() => {
 					handleClick({
 						id,
 						name,
@@ -121,8 +123,15 @@ const Card = (props) => {
 						total: amount * price,
 						type,
 						price,
-					})
-				}
+					});
+					toast({
+						title: "Produto adicionado!",
+						description: "Produto adicionado ao carrinho!",
+						status: "success",
+						duration: 15000,
+						isClosable: true,
+					});
+				}}
 			>
 				Adicionar ao carrinho
 			</Button>
